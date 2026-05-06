@@ -1,16 +1,22 @@
 {
   "name": "walker-indicator",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "description": "Narrative intelligence operating system for options, macro, volatility, and cross-asset confirmation.",
-  "type": "module",
+  "description": "Macro radar and narrative intelligence for options traders.",
   "scripts": {
-    "dev": "node server/index.mjs",
-    "start": "node server/index.mjs",
-    "build": "node scripts/validate.mjs",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
     "validate": "node scripts/validate.mjs"
   },
   "engines": {
-    "node": ">=18.17"
+    "node": ">=18.18"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.4",
+    "next": "^14.2.15",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   }
 }

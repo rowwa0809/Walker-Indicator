@@ -2,96 +2,100 @@
 
 **Option Trading · Macro Economic Radar.**
 
-Walker Indicator is a retail-facing **market intelligence operating system** for options, macro, volatility, news, and cross-asset narrative confirmation.
+A retail-friendly **macro intelligence dashboard** for options traders. Each macro module — rates, growth, inflation, volatility, sentiment, and more — opens its own live page with TradingView charts, screeners, and the economic calendar. The Narrative Intelligence Layer reads from your Supabase `macro-radar` project and explains why the tape is behaving the way it is, in plain English.
 
-## Product thesis
+> Walker Indicator is **informational software, not financial advice**. It does not place trades or recommend buy/sell actions.
 
-Most options products compete on scanner quantity. Walker Indicator competes on signal trust and narrative intelligence:
+## What's in v0.3
 
-- every signal needs a plain-English explanation;
-- every claim should eventually have a backtest behind it;
-- every alert carries a risk label and compliance-safe language;
-- every market story is tested against macro, volatility, breadth, liquidity, and cross-asset confirmation.
+- **Next.js App Router** with React 18.
+- **16 clickable macro modules** at `/modules/<slug>` — all rendered with live TradingView widgets.
+- **Persistent ticker tape** across every page (S&P, Nasdaq, Dow, VIX, US10Y, DXY, Gold, Crude, BTC).
+- **Narrative Intelligence Layer** powered by Supabase (`narrative_signals` table) with a curated mock fallback.
+- **Walker + radar brand lockup** and the **16 custom icon set** preserved verbatim from the design.
 
-## Narrative Intelligence Layer
+## How to run (Windows / Mac / Linux)
 
-```text
-Narrative Intelligence Layer
-├── Dominant narrative tracking
-├── Narrative strength scoring
-├── Narrative divergence detection
-├── Cross-asset narrative confirmation
-├── Regime contradiction engine
-├── Sentiment shift velocity
-└── Market psychology overlays
-```
-
-Examples this layer is designed to express:
-
-- "AI supercycle narrative weakening despite semiconductor momentum."
-- "Bond market contradicting equity optimism."
-- "Market pricing soft landing while volatility term structure signals stress."
-- "Retail call activity detached from macro liquidity conditions."
-
-## How to run
-
-Requires Node 18.17+.
+You need **Node 18.18+**. Get it from <https://nodejs.org>.
 
 ```bash
-# 1. install (no deps required — pure Node)
+# 1. install dependencies (first time only — pulls in Next.js + React)
+npm install
+
 # 2. run the dev server
 npm run dev
-# → Walker Indicator running at http://localhost:3000
+# → ready - started server on 0.0.0.0:3000, url: http://localhost:3000
 ```
 
-The server has zero npm dependencies. It serves `public/` statically and exposes:
+Open <http://localhost:3000>. Click any of the 16 module cards to drill into that theme's live charts.
 
-| Route             | Purpose                                                       |
-| ----------------- | ------------------------------------------------------------- |
-| `/`               | Landing UI (hero, narratives, iconography, branded viz)       |
-| `/api/narratives` | JSON payload — Supabase if configured, else curated fallback  |
-| `/api/healthz`    | Liveness + indicates whether Supabase is wired                |
+To stop the server: **Ctrl+C** in the terminal.
 
-Validate the JSON contract before shipping changes to `data/narratives.json`:
+### Routes
 
-```bash
-npm run validate    # or: npm run build
-```
+| Route                  | Purpose                                             |
+| ---------------------- | --------------------------------------------------- |
+| `/`                    | Landing — hero, narratives, iconography, brand viz  |
+| `/modules/<slug>`      | One of 16 macro modules (live TradingView widgets)  |
+| `/api/narratives`      | JSON — Supabase if configured, else curated fallback |
+| `/api/healthz`         | Liveness + Supabase wiring status                   |
+
+Module slugs: `macro-radar`, `global-economy`, `interest-rates`, `economic-growth`, `market-trends`, `data-analysis`, `event-calendar`, `risk-management`, `price-action`, `asset-allocation`, `commodities`, `inflation`, `employment`, `central-banks`, `geopolitical-risk`, `sentiment-index`.
 
 ## Supabase wiring
 
-The app's live data source is the Supabase project **`macro-radar`** (`maouzuvydhmlwijmabcc`). The migration creates a dedicated `public.narrative_signals` table — additive, does not modify your existing schema — and seeds the four demo narratives.
+The narrative panel reads from the **`macro-radar`** Supabase project (`maouzuvydhmlwijmabcc`). The migration creates a dedicated `public.narrative_signals` table — additive, doesn't modify your existing schema — and seeds the four demo narratives.
 
-**Never commit service-role keys.** Put credentials in a local `.env.local` file (already in `.gitignore`):
+**Never commit service-role keys.** Put credentials in `.env.local` (already in `.gitignore`):
 
-```bash
+```
 NEXT_PUBLIC_SUPABASE_URL=https://maouzuvydhmlwijmabcc.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=<rotate-then-paste-server-only-key>
-NEXT_PUBLIC_SUPABASE_ANON_KEY=<publishable-or-anon-key>
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<publishable-key>
 ```
 
-Then start the server with the env file:
+Next.js loads `.env.local` automatically — just `npm run dev` after you create the file. Hit `/api/healthz` to confirm `"supabase":"configured"`.
 
-```bash
-node --env-file=.env.local server/index.mjs
-# or for npm:
-NODE_OPTIONS="--env-file=.env.local" npm run dev
-```
-
-When `NEXT_PUBLIC_SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` are both set, `/api/narratives` reads from Supabase. If the request fails or times out (5s), the server falls back to the curated mock data in `data/narratives.json` and surfaces a `warning` in the response. Hit `/api/healthz` to confirm which mode is active.
+If the Supabase request fails or times out (5s), the server falls back to `data/narratives.json` and surfaces a `warning` in the API response.
 
 ### Re-applying the schema
 
-The committed migration lives at `supabase/001_narrative_intelligence.sql`. It has already been applied to `macro-radar` as migration `create_narrative_signals`. To reapply or seed a new project, run the SQL via the Supabase SQL editor or CLI.
+The committed migration is `supabase/001_narrative_intelligence.sql`. It has already been applied to `macro-radar` as migration `create_narrative_signals`. Re-run it in the Supabase SQL editor or CLI to seed a new project.
 
-## Design system
+## Architecture
 
-The site implements three brand layers from the design reference:
+```
+app/
+├── layout.jsx              # global ticker tape + metadata
+├── page.jsx                # home: hero, narratives, iconography, viz
+├── globals.css             # design system (green / dark)
+├── api/
+│   ├── narratives/route.js # GET narratives (Supabase or fallback)
+│   └── healthz/route.js
+└── modules/
+    └── [slug]/page.jsx     # one page per macro module
 
-1. **Custom iconography set** — 16 inline SVG marks for macro and options modules.
-2. **Branded data visualization** — Macro Radar (6-axis), Indicator Scorecard, and Market Regime Cycle in the shared green/amber/red palette.
-3. **Backgrounds and hero treatment** — radar gradients, grid mesh, and walker+radar lockup.
+components/
+├── BrandLockup.jsx         # walker + radar SVG lockup (preserved)
+├── Icons.jsx               # 16 custom icon SVGs (preserved)
+├── HomeViz.jsx             # macro radar / scorecard / regime cycle
+└── TVWidget.jsx            # TradingView embed wrapper
+
+lib/
+├── modules.js              # 16 module configs (widget mappings)
+└── narratives.js           # Supabase fetch + fallback
+
+data/narratives.json        # curated mock (fallback)
+supabase/                   # migration + seed
+scripts/validate.mjs        # JSON contract validator
+```
+
+## Data realities (so retail traders aren't surprised)
+
+- **TradingView widgets are free and embeddable.** Most US-equity feeds are delayed ~15 minutes. Real-time requires a paid feed (Polygon, IEX, etc.) — easy to swap in later.
+- **Yahoo Finance has no public API.** TradingView covers the live-quote/chart need; Supabase covers your *state* (narratives, watchlists, alerts, notes).
+- **Supabase isn't a tick database.** Don't try to cache live prices there — use the widgets / a market-data API for prices, Supabase for everything *about* prices.
 
 ## Compliance stance
 
-Walker Indicator is informational software, not financial advice. User-facing language describes observed conditions and historical associations, not instructions to buy or sell.
+Walker Indicator is informational software, not financial advice. Charts and data feeds may be delayed. The dashboard never places orders, routes trades, or recommends buy/sell actions.
