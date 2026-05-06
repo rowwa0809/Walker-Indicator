@@ -1,0 +1,111 @@
+{
+  "marketWeather": {
+    "regime": "Transition",
+    "temperature": 64,
+    "liquidity": 48,
+    "stress": 57,
+    "narrativeClarity": 71
+  },
+  "narratives": [
+    {
+      "id": "ai-supercycle-fatigue",
+      "title": "AI supercycle narrative losing breadth",
+      "summary": "Semiconductor leadership remains visible, but participation is narrowing and defensive software bids are not confirming the broad AI-growth story.",
+      "status": "diverging",
+      "lens": "divergence",
+      "confidence": 82,
+      "strength": 68,
+      "shiftVelocity": -14,
+      "contradictionScore": 73,
+      "affectedTickers": ["NVDA", "AMD", "SMH", "MSFT"],
+      "evidence": [
+        "Semiconductor momentum remains elevated while equal-weight tech breadth fades.",
+        "Call premium is concentrated in fewer mega-cap names instead of spreading through the supply chain.",
+        "Credit and rates proxies are not confirming a full risk-on acceleration."
+      ],
+      "crossAssetPulses": [
+        { "asset": "SMH", "reading": "Momentum leadership", "bias": "risk-on", "strength": 84 },
+        { "asset": "QQQE", "reading": "Breadth fading", "bias": "mixed", "strength": 42 },
+        { "asset": "10Y Yield", "reading": "Discount-rate pressure", "bias": "risk-off", "strength": 61 }
+      ],
+      "psychologyOverlay": "Crowding risk: traders are extrapolating winners while ignoring narrowing confirmation.",
+      "riskLabel": "Medium",
+      "updatedAt": "2026-05-06T13:45:00.000Z"
+    },
+    {
+      "id": "equity-bond-contradiction",
+      "title": "Bond market contradicting equity optimism",
+      "summary": "Equity indices are pricing resilient growth, while duration and volatility proxies imply tighter financial conditions and less room for multiple expansion.",
+      "status": "contradicted",
+      "lens": "regime_contradiction",
+      "confidence": 76,
+      "strength": 74,
+      "shiftVelocity": 9,
+      "contradictionScore": 86,
+      "affectedTickers": ["SPY", "QQQ", "TLT", "IWM"],
+      "evidence": [
+        "Small-cap participation is lagging despite headline index strength.",
+        "Treasury volatility remains elevated relative to equity complacency.",
+        "High-duration growth bids are vulnerable if yields remain sticky."
+      ],
+      "crossAssetPulses": [
+        { "asset": "SPY", "reading": "Index optimism", "bias": "risk-on", "strength": 72 },
+        { "asset": "TLT", "reading": "Weak duration bid", "bias": "risk-off", "strength": 67 },
+        { "asset": "MOVE/VIX", "reading": "Rates stress premium", "bias": "risk-off", "strength": 79 }
+      ],
+      "psychologyOverlay": "Confirmation bias: equity traders are accepting soft-landing headlines faster than rates markets are validating them.",
+      "riskLabel": "High",
+      "updatedAt": "2026-05-06T13:48:00.000Z"
+    },
+    {
+      "id": "vol-term-stress",
+      "title": "Soft-landing pricing with volatility stress underneath",
+      "summary": "Spot indices look calm, but volatility term-structure and downside hedging demand show a market that is still paying for tail protection.",
+      "status": "shifting",
+      "lens": "cross_asset_confirmation",
+      "confidence": 71,
+      "strength": 62,
+      "shiftVelocity": 18,
+      "contradictionScore": 69,
+      "affectedTickers": ["SPY", "VIX", "VIXY", "HYG"],
+      "evidence": [
+        "Downside put skew is firm relative to spot index drawdown.",
+        "Credit spreads are not deteriorating, but hedging demand is rising.",
+        "Volatility buyers are active before visible price weakness."
+      ],
+      "crossAssetPulses": [
+        { "asset": "VIX Curve", "reading": "Stress pockets", "bias": "mixed", "strength": 66 },
+        { "asset": "HYG", "reading": "Credit stable", "bias": "risk-on", "strength": 58 },
+        { "asset": "SPX Skew", "reading": "Protection demand", "bias": "risk-off", "strength": 75 }
+      ],
+      "psychologyOverlay": "Surface calm, hidden caution: traders are not panicking, but they are quietly paying for insurance.",
+      "riskLabel": "Medium",
+      "updatedAt": "2026-05-06T13:50:00.000Z"
+    },
+    {
+      "id": "retail-liquidity-detachment",
+      "title": "Retail call activity detached from liquidity backdrop",
+      "summary": "Speculative call demand is rising in high-beta names even as liquidity gauges and rate-sensitive assets argue for selectivity.",
+      "status": "diverging",
+      "lens": "market_psychology",
+      "confidence": 79,
+      "strength": 70,
+      "shiftVelocity": 22,
+      "contradictionScore": 78,
+      "affectedTickers": ["TSLA", "COIN", "MARA", "ARKK"],
+      "evidence": [
+        "Short-dated call volume is elevated in high-beta retail favorites.",
+        "Liquidity-sensitive ETFs are not broadly confirming the same risk appetite.",
+        "Premium concentration suggests chase behavior rather than institutionally diversified accumulation."
+      ],
+      "crossAssetPulses": [
+        { "asset": "ARKK", "reading": "Speculative demand", "bias": "risk-on", "strength": 77 },
+        { "asset": "DXY", "reading": "Liquidity headwind", "bias": "risk-off", "strength": 63 },
+        { "asset": "IWM", "reading": "Weak beta breadth", "bias": "mixed", "strength": 45 }
+      ],
+      "psychologyOverlay": "FOMO impulse: options demand is front-running confirmation from liquidity and breadth.",
+      "riskLabel": "High",
+      "updatedAt": "2026-05-06T13:52:00.000Z"
+    }
+  ]
+}
