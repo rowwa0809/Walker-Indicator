@@ -97,6 +97,48 @@ insert into public.narrative_signals (
   'Confirmation bias: equity traders are accepting soft-landing headlines faster than rates markets are validating them.',
   'High',
   '2026-05-06T13:48:00.000Z'
+),
+(
+  'vol-term-stress',
+  'Soft-landing pricing with volatility stress underneath',
+  'Spot indices look calm, but volatility term-structure and downside hedging demand show a market that is still paying for tail protection.',
+  'shifting',
+  'cross_asset_confirmation',
+  71,
+  62,
+  18,
+  69,
+  array['SPY', 'VIX', 'VIXY', 'HYG'],
+  array[
+    'Downside put skew is firm relative to spot index drawdown.',
+    'Credit spreads are not deteriorating, but hedging demand is rising.',
+    'Volatility buyers are active before visible price weakness.'
+  ],
+  '[{"asset":"VIX Curve","reading":"Stress pockets","bias":"mixed","strength":66},{"asset":"HYG","reading":"Credit stable","bias":"risk-on","strength":58},{"asset":"SPX Skew","reading":"Protection demand","bias":"risk-off","strength":75}]'::jsonb,
+  'Surface calm, hidden caution: traders are not panicking, but they are quietly paying for insurance.',
+  'Medium',
+  '2026-05-06T13:50:00.000Z'
+),
+(
+  'retail-liquidity-detachment',
+  'Retail call activity detached from liquidity backdrop',
+  'Speculative call demand is rising in high-beta names even as liquidity gauges and rate-sensitive assets argue for selectivity.',
+  'diverging',
+  'market_psychology',
+  79,
+  70,
+  22,
+  78,
+  array['TSLA', 'COIN', 'MARA', 'ARKK'],
+  array[
+    'Short-dated call volume is elevated in high-beta retail favorites.',
+    'Liquidity-sensitive ETFs are not broadly confirming the same risk appetite.',
+    'Premium concentration suggests chase behavior rather than institutionally diversified accumulation.'
+  ],
+  '[{"asset":"ARKK","reading":"Speculative demand","bias":"risk-on","strength":77},{"asset":"DXY","reading":"Liquidity headwind","bias":"risk-off","strength":63},{"asset":"IWM","reading":"Weak beta breadth","bias":"mixed","strength":45}]'::jsonb,
+  'FOMO impulse: options demand is front-running confirmation from liquidity and breadth.',
+  'High',
+  '2026-05-06T13:52:00.000Z'
 )
 on conflict (id) do update set
   title = excluded.title,
