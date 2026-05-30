@@ -60,7 +60,7 @@ npm run validate    # or: npm run build
 
 ## Supabase wiring
 
-The app's live data source is the Supabase project **`macro-radar`** (`maouzuvydhmlwijmabcc`). The migration creates a dedicated `public.narrative_signals` table — additive, does not modify your existing schema — and seeds the four demo narratives.
+
 
 **Never commit service-role keys.** Put credentials in a local `.env.local` file (already in `.gitignore`):
 
